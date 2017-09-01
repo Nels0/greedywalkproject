@@ -29,12 +29,12 @@ end
 
 idxnext = FindSmallestElevationChange(heights(mpos,npos),availposes);
 
-disp(currentpos)
-disp(heights(mpos,npos))
-disp(availposes)
+%disp(currentpos)
+%disp(heights(mpos,npos))
+%disp(availposes)
 disp(idxnext)
 
-nextpos(1) = mpos - 2 + idxnext;
+nextpos(1) = mpos - 2 + idxnext(1);
 nextpos(2) = npos + easting;
 
 end
