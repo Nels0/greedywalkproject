@@ -5,23 +5,27 @@ function [rows,columns,elevations] = BestGreedyPath(heights)
 %the basic stuff
 [height, width]  = size(heights);
 
+%Iterate over whole matrix, row at a time
 for m = 1:height
     for n = 1:width
+        %Impractical to deduplicate calls to GreedyWalk and FindPathElev
         if n == 1
-            %
+            %From the left side, head east
             [trows, tcolumns] = GreedyWalk([m n], 1, heights);
             [televations, tcost] = FindPathElevationsAndCost(trows,tcolumns,heights);
         elseif n == width
+            %From the right side, head west
             [trows, tcolumns] = GreedyWalk([m n], -1, heights);
             [televations, tcost] = FindPathElevationsAndCost(trows,tcolumns,heights);
         else
+            %From the middle somewhere, go west and east
             %get data heading west
             [trowsW, tcolumnsW] = GreedyWalk([m n], -1, heights);
             [televationsW, tcostW] = FindPathElevationsAndCost(trows,tcolumns,heights);
             %Get data heaading east
             [trowsE, tcolumnsE] = GreedyWalk([m n], 1, heights);
             [televationsE, tcostE] = FindPathElevationsAndCost(trows,tcolumns,heights);
-            %Concatenate Results
+            %Concatenate results
             trows = [Reverse(trowsW) trowsE];
             tcolumns = [Reverse(tcolumnsW) tcolumnsE];
             televations = [Reverse(televationsW) televationsE];
@@ -39,16 +43,17 @@ end
 
 %Create array of costs
 costs = cell2mat(results(:,:,1));
-%Get minimums for each column
-[lowval,midx] = min(costs);
-%Get actual minimum
+
+%Get minimums for each column and rows each minimum is in
+[lowval,midxs] = min(costs);
+
+%Get overall minimum, and column it is in
 [lowval2,nidx] = min(lowval);
 
-%midx(nidx) refers to the fuck I forgot already but it works\
-%I tried below
-%midx is a vector of positions of minimums for each column
-%nidx is the position of the minimum of minimums for each column
-%midx(nidx) tells the row of the column that has the least minimum
+%Get lowest column index based on lowest row index
+midx = midxs(nidx);
+
+
 rows = cell2mat(results(midx(nidx), nidx, 2));
 columns = cell2mat(results(midx(nidx), nidx, 3));
 elevations = cell2mat(results(midx(nidx), nidx, 4));
