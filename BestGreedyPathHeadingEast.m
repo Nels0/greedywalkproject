@@ -1,6 +1,6 @@
 function [rows,columns,elevations] = BestGreedyPathHeadingEast(heights)
 %Finds the best (least cost) path heading from west to east across a
-%matrix 
+%matrix
 %inputs:    Heights: matrix of heightfield
 %outputs:   Rows: row indices in order
 %           Columns: column indices in order
@@ -21,6 +21,6 @@ for x = 1:height %start at 1 anyway for thoroughness, iterate over start pos's
         cost = tcost;
         rows = trows;
         columns = tcolumns;
-        elevations = televations; 
+        elevations = televations;
     end
 end

@@ -17,7 +17,7 @@ if easting == 1
     traverse = abs(nstart-width) + 1;
 elseif easting == -1
     traverse = nstart;
-else 
+else
     %Just in case error handling
     error('Expected easting to be 1 or -1, got %1.0f',easting)
 end
@@ -31,5 +31,5 @@ for x = 2:traverse %Call greedypick right number of times (hopefully)
     rows(x) = tpos(1);
     columns(x) = tpos(2);
 end
-    
+
 end
