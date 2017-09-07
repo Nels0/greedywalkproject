@@ -1,6 +1,10 @@
 function [rows,columns,elevations] = BestGreedyPath(heights)
-%FUNCTION HEADER ADN STUFF
-
+%Finds the absolute best greedy path checking the greedy paths
+%originating from every point on the matrix
+%inputs:    Heights: matrix of heightfield
+%outputs:   Rows: row indices in order
+%           Columns: column indices in order
+%           Elevations: log of heights travelled through
 
 %the basic stuff
 [height, width]  = size(heights);
@@ -9,6 +13,8 @@ function [rows,columns,elevations] = BestGreedyPath(heights)
 for m = 1:height
     for n = 1:width
         %Impractical to deduplicate calls to GreedyWalk and FindPathElev
+        %Setting easting would require a 'split' flag which would
+        %reintroduce duplication. This is easier to read
         if n == 1
             %From the left side, head east
             [trows, tcolumns] = GreedyWalk([m n], 1, heights);
@@ -53,7 +59,7 @@ costs = cell2mat(results(:,:,1));
 %Get lowest column index based on lowest row index
 midx = midxs(nidx);
 
-
+%Convert lowest values from cell matrix to proper form and output
 rows = cell2mat(results(midx(nidx), nidx, 2));
 columns = cell2mat(results(midx(nidx), nidx, 3));
 elevations = cell2mat(results(midx(nidx), nidx, 4));
