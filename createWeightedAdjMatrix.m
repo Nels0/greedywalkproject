@@ -2,11 +2,12 @@ function [adjmatrix] = createWeightedAdjMatrix(heights)
 %Creates an adjacency matrix with cost as adjacency value
 %Inputs:  heights: Matrix height field
 %Outputs: adjmatrix: Matrix where value in cell indicates path from row
-%           node to column node with cost of the value
+%           node to column node with cost of the value. Inf indicates no
+%           path exists
 
 [inheight,inwidth] = size(heights);
 %preallocate array
-adjmatrix(inheight*inwidth) = 0;
+adjmatrix = inf(inheight*inwidth);
 
 
 for m = 1:inheight
