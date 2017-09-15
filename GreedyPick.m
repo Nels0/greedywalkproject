@@ -1,29 +1,25 @@
 function [nextpos] = GreedyPick(pos, easting, heights)
 
-%pos(1) = row
-%pos(2) = column
 
-m = pos(1);
-n = pos(2);
+row = pos(1);
+col = pos(2);
 
 avail = inf(1,3);
 
 for x = 1:3
-   try
-        avail(x) = heights(m + easting, n - 2 + x);
-   catch ex
-   end
+    try
+        avail(x) = heights(row + x - 2, col + easting);
+    catch
+    end
 end
 
-height = heights(m,n);
+height = heights(row,col);
 
-FindSmallestElevationChange(height,avail);
+idx = FindSmallestElevationChange(height,avail);
 
-[~,idxmin] = min(avail);
+mnext = row - 2 + idx(1);
+nnext = col + easting;
 
-mnext = n - 2 + idxmin;
-nnext = m + easting;
-
-nextpos = [nnext, mnext];
+nextpos = [mnext, nnext];
 
 end
