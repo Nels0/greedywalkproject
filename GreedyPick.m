@@ -11,7 +11,7 @@ avail = inf(1,3);
 for x = 1:3
    try
         avail(x) = heights(m + easting, n - 2 + x);
-   catch
+   catch ex
    end
 end
 
