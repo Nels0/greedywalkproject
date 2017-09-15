@@ -8,18 +8,17 @@ function [nextpos] = GreedyPick(currentpos, easting, heights)
 mpos = currentpos(1); %Current row
 npos = currentpos(2); %current column
 
-[height, width] = size(heights); %heightfield size
+[height, ~] = size(heights); %heightfield size
 
+availposes = inf(1,3);
 if mpos == 1 %current position at top of array
     %Manually get values with offset
-    availposes(1) = inf; %Doesn't exist, should never return as least distance
     availposes(2) = heights(mpos,npos + easting);
     availposes(3) = heights(mpos + 1, npos + easting);
 elseif mpos == height %current position at bottom of array
     %Manually get values with offset
     availposes(1) = heights(mpos - 1, npos + easting);
     availposes(2) = heights(mpos,npos + easting);
-    availposes(3) = inf; %see above
 else %generate avail positions automatically
     for x = 1:3
         availposes(x) = heights(mpos - 2 + x, npos + easting);

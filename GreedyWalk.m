@@ -8,7 +8,6 @@ function [rows,cols] = GreedyWalk(startpos,easting,heights)
 %                          sequential row and column pairs
 
 
-tic
 
 %set basic variables
 %mstart = startpos(1);
@@ -35,9 +34,10 @@ rows(1) = startpos(1);
 cols(1) = startpos(2);
 
 for x = 2:traverse %Call greedypick right number of times (hopefully)
+    
     tpos = GreedyPick(tpos,easting,heights);
     rows(x) = tpos(1);
     cols(x) = tpos(2);
 end
-setGlobalx(getGlobalx()+toc)
+
 end

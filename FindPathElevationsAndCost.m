@@ -5,6 +5,7 @@ function [pathelevations, totalcost] = FindPathElevationsAndCost(rows,columns,he
 %Outputs: pathelevations: height at each point in path
 %         totalcost: sum of height differences between path points
 
+
 %initialise
 lastheight = heights(rows(1),columns(1));
 totalcost = 0;

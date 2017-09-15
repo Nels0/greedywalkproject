@@ -11,6 +11,7 @@ setGlobalx(0)
 %the basic stuff
 [height, width]  = size(heights);
 
+count = 0;
 
 %Iterate over whole matrix, row at a time
 for m = 1:height
@@ -21,10 +22,10 @@ for m = 1:height
     eastcount = 0;
     midcount = 0;
     
-    
+    tic
     for n = 1:width
         
-
+        count = count + 1;
         %Impractical to deduplicate calls to GreedyWalk and FindPathElev
         %Setting easting would require a 'split' flag which would
         %reintroduce duplication. This is easier to read
@@ -61,7 +62,7 @@ for m = 1:height
             
         end
         
-        %Store results for every position in a 3d cell matrix     
+        %Store results for every position in a 3d cell matrix
         results{m, n, 1} = tcost;
         results{m, n, 2} = trows;
         results{m, n, 3} = tcolumns;
@@ -73,9 +74,11 @@ for m = 1:height
     tot = westcount + midcount + eastcount;
     
     walktime = getGlobalx;
-    fprintf("Avg greedywalktime: %f\n",walktime/tot)
-    
+    %fprintf("Avg greedywalktime: %f\n",walktime/tot)
+    toc
 end
+
+disp(count);
 
 %Create array of costs
 costs = cell2mat(results(:,:,1));

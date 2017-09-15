@@ -5,26 +5,14 @@ function [leastElevations] = FindSmallestElevationChange(current,avail)
 %           b: array of elevations
 %Outputs:   leastElevations: vector referencing positions of
 
-%initialise least distance to a potential value (first element)
-mindist = abs(current - avail(1));
+dists(1,length(avail)) = 0;
 
 %Iterate over avail
 for x = 1:length(avail)
     %distance to element x
-    tdist = abs(current - avail(x));
-    
-    
-    if tdist == mindist %append to the list if multiple exist
-        if exist('leastElevations','var') %check vector initialised
-            leastElevations(length(leastElevations) + 1) = x; %append pos
-        else %create the list if it doesn't exist
-            leastElevations(1) = x; %Create vector
-        end
-    elseif tdist < mindist %we have a new least distance
-        mindist = tdist; %remember we have a new least distance
-        clear leastElevations %stop the presses, throw everything out
-        leastElevations(1) = x; %lets start again
-    end
+    dists(x) = abs(current - avail(x));    
 end
+
+[~,leastElevations] = min(dists);
 
 end
