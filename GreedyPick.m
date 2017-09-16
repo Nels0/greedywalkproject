@@ -1,31 +1,36 @@
 function [nextpos] = GreedyPick(pos, easting, heights)
+%Provides greedy next position.
+%Inputs:    currentpos: 1x2 Vector of of current row and column
+%           easting:    Moving east (+1) or west (-1)
+%           heights:    Elevation data for the whole matrix/area
+%Outputs:   nextpos:    1x2 Vector of next row and column
 
 [height,width] = size(heights);
 row = pos(1);
 col = pos(2);
-currentHeight = heights(row,col);
-min = inf;
+currentHeight = heights(row,col); %cache current height
+min = inf; %anything will be smaller than infinity
 
-for x = -1:1
-    if (row + x) >= 1 && (row + x) <= height %...
-            %&& col + easting >= 1 && col + easting <= width
+%Throw proper out of bounds error
+if (col + easting) > width || col + easting <1
+    error("Resulting column is outside array bounds")
+end
+
+for x = -1:1 %range of visible offsets
+    if (row + x) >= 1 && (row + x) <= height %check if offset is in matrix
+        %check min distance between
         t_min = abs(currentHeight - heights(row + x , col + easting));
-        if t_min < min
-            idx = x;
-            min = t_min;
+        if t_min < min %We have a new minimum
+            idx = x; %save new minimum offset
+            min = t_min; %save new minimum
         end
-    else
-        
     end
 end
 
-%height = heights(row,col);
-
-%idx = FindSmallestElevationChange(height,avail);
-
+%set results
 mnext = row + idx;
 nnext = col + easting;
-
+%concatenate
 nextpos = [mnext, nnext];
 
 end
