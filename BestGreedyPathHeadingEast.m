@@ -8,19 +8,18 @@ function [rows,columns,elevations] = BestGreedyPathHeadingEast(heights)
 
 [height, width]  = size(heights);
 
-%initialise values to first value
-[rows, columns] = GreedyWalk([1 1], 1, heights);
-[elevations,cost] = FindPathElevationsAndCost(rows,columns,heights);
+mincost = inf;
 
-
-for x = 1:height %start at 1 anyway for thoroughness, iterate over start pos's
-    [trows, tcolumns] = GreedyWalk([x 1], 1, heights); %Get best greedy path
-    %Evaluate cost of best greedy path
-    [televations,tcost] = FindPathElevationsAndCost(trows,tcolumns,heights);
-    if exist('cost','var') && tcost < cost %Set minimum if it's the firt min found
-        cost = tcost;
+for x = 1:height %iterate over start pos's
+    [trows, tcols] = GreedyWalk([x 1], 1, heights); %Get best greedy path
+    %check cost
+    [televations, tcost] = FindPathElevationsAndCost(trows,tcols,heights);
+    
+    %save output if the current path is the cheapest one
+    if tcost < mincost
         rows = trows;
-        columns = tcolumns;
+        columns = tcols;
         elevations = televations;
+        mincost = tcost;
     end
 end
