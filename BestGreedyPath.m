@@ -23,8 +23,8 @@ for m = 1:height
             tcolsW = flip(tcolsW);
         end
         if n > 1 && n < width
-            trows = [trowsW trowsE];
-            tcols = [tcolsW tcolsE];
+            trows = [trowsW trowsE(2:end)];
+            tcols = [tcolsW tcolsE(2:end)];
         elseif n == 1
             trows = trowsE;
             tcols = tcolsE;
@@ -39,6 +39,7 @@ for m = 1:height
             rows = trows;
             columns = tcols;
             elevations = televations;
+            mincost = tcost;
         end            
     end
 end
