@@ -13,9 +13,7 @@ for x = 1:3
         %avail(x) = heights(row + x - 2, col + easting);
         tm = row + x - 2;
         tn = col + easting;
-        tavail = heights(tm,tn);
-        cdistance = abs(cheight - tavail);
-        if cdistance < tmin
+        if abs(cheight - heights(tm,tn)) < tmin
             %disp("bing")
             idx = x;
         end
