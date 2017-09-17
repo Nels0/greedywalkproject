@@ -4,36 +4,49 @@ function [rows,columns,elevations] = BestPath(heights)
 
 [height, width] = size(heights);
 
+width = width + 2;
+
+siz = [height width]; %fore use in ind2sub
+
+
+%heightfield with extra edges added
 dheights = [[1; zeros(height-1,1)], heights,[1; zeros(height-1,1)]];
 
-disp(dheights)
 
 %tracking
-unvisited = ones(height,width + 2);
-cost = inf(height, width + 2);
-prevnode = -1 * ones(height,width);
+unvisited = ones(height,width);
+unvisited = logical(unvisited);
+cost = inf(height, width);
+prevnode = -1 * ones(height, width);
+
+cost(1,1) = 0;
 
 
-
-[height, width] = size(heights);
 finished = false;
 unvisited(:,1) = 0;
-
-row = 1;
-col = 1;
-
+unvisited(1,1) = 1;
 
 while ~finished
-    disp('beep')
-    [rows_n, cols_n, costs_n] = getneighbours(row,col,heights,height,width); %get closest neighbour
     
-    if cost(row,col) == inf
-        cost(row,col) = 0;
-    end
+    
+    
+    %find unvisited node with least distance TO CURRENT NODE
+    
+    
+    tcost = cost(:);
+    tcost(~unvisited) = inf;
+    [~,leasts] = min(tcost);
+    [row,col] = ind2sub(siz,leasts(1));
+    
     
     unvisited(row,col) = 0;
     
-    if col == width
+    
+    
+    [rows_n, cols_n, costs_n] = getneighbours(row,col,dheights,height,width); %get closest neighbour
+    
+    
+    if col == width - 1
         finished = true;
         break
     else
@@ -41,22 +54,24 @@ while ~finished
             t_cost = cost(row,col) + costs_n(x);
             if t_cost < cost(rows_n(x), cols_n(x))
                 cost(rows_n(x), cols_n(x)) = t_cost;
+                prev(rows_n(x), cols_n(x)) = sub2ind(siz,row,col);
             end
         end
     end
     
-    %indices of minimum costs
-    asd = (cost(:) == min(cost(:)));
-    %qwe = unvisited(:);
-    %abc = (qwe == asd);
-    
-        
-    abc = find(unvisited(1:length(asd)) == asd);
-    [row,col] = ind2sub([height, width + 2],abc(1));
-    
-    %leastindices = find(deltas == min(deltas));
     
 end
+disp(prev)
+disp(cost)
+
+[~,step_m] = min(cost(:,width-1));
+
+
+for x = width-2:-1:1
+    rows(x) = step_m;
+    columns(x) = x;
+    elevations(x) = heights(step_m,x);
+    [~, step_m] = ind2sub(siz,prev(step_m,x));
 end
 
 

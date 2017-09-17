@@ -5,14 +5,15 @@ if nargin <= 3
     [height,width] = size(heights);
 end
 
-if col == 1
-    cols = ones(1,height);
-    rows = 1:height;
-    costs = zeros(1,height);
-elseif col == width
+
+if col == width - 1
     rows = -1;
     cols = -1;
     costs = -1;
+elseif col == 1
+        rows = 1:height;
+        cols = 2 * ones(1,height);
+        costs = zeros(1,height);
 else    
     c_val = heights(row,col);
     c = 0;
