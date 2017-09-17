@@ -7,7 +7,7 @@ function [adjmatrix] = createWeightedAdjMatrix(heights)
 
 [inheight,inwidth] = size(heights);
 %preallocate array
-adjmatrix = inf(inheight*inwidth);
+adjmatrix = NaN(inheight*inwidth);
 
 
 for m = 1:inheight

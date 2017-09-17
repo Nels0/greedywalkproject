@@ -1,4 +1,3 @@
-%pick = BestGreedyPath(E)
 num = 6;
 E = peaks(100);
 t_x = zeros(1,num);
