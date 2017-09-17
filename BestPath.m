@@ -4,30 +4,58 @@ function [rows,columns,elevations] = BestPath(heights)
 
 [height, width] = size(heights);
 
-%::1 is whether node visited
-%::2 is distance from origin
-%::3 is prev node
-dcells = cell(height,width,3);
+dheights = [[1; zeros(height-1,1)], heights,[1; zeros(height-1,1)]];
 
-%initalise cell values
-dcells(:,:,1) = 0;
-dcells(:,:,2 = inf;
-dcells(:,:,3) = "undefined";
+disp(dheights)
 
-%set
-dcells(:,1,3) = "start";
+%tracking
+unvisited = ones(height,width + 2);
+cost = inf(height, width + 2);
+prevnode = -1 * ones(height,width);
 
+
+
+[height, width] = size(heights);
 finished = false;
+unvisited(:,1) = 0;
 
 row = 1;
-col = 0;
+col = 1;
+
 
 while ~finished
-    for x = 1:2
-        
-        [row_u, col_u] = getclosestneighbour(row,col,heights,height,width,dcells); %get closest neighbour
-        
+    disp('beep')
+    [rows_n, cols_n, costs_n] = getneighbours(row,col,heights,height,width); %get closest neighbour
+    
+    if cost(row,col) == inf
+        cost(row,col) = 0;
     end
+    
+    unvisited(row,col) = 0;
+    
+    if col == width
+        finished = true;
+        break
+    else
+        for x = 1:length(rows_n)
+            t_cost = cost(row,col) + costs_n(x);
+            if t_cost < cost(rows_n(x), cols_n(x))
+                cost(rows_n(x), cols_n(x)) = t_cost;
+            end
+        end
+    end
+    
+    %indices of minimum costs
+    asd = (cost(:) == min(cost(:)));
+    %qwe = unvisited(:);
+    %abc = (qwe == asd);
+    
+        
+    abc = find(unvisited(1:length(asd)) == asd);
+    [row,col] = ind2sub([height, width + 2],abc(1));
+    
+    %leastindices = find(deltas == min(deltas));
+    
 end
 end
 
