@@ -11,7 +11,7 @@ function [rows,cols] = GreedyWalk(pos,easting,heights)
 row_t = pos(1);
 col_t = pos(2);
 t_pos = pos;
-[~,width] = size(heights);
+[height,width] = size(heights);
 
 %loop the appropriate number of times (distance to walk)
 if easting == 1
@@ -31,7 +31,7 @@ cols(1) = col_t;
 
 %walk across the matrix
 for x = 2:traverse %start at pos 2, which is after the first jump
-    [t_pos] = GreedyPick(t_pos, easting, heights);
+    [t_pos] = GreedyPick(t_pos, easting, heights, height, width);
     rows(x) = t_pos(1);
     cols(x) = t_pos(2);
 end

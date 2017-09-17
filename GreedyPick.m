@@ -1,11 +1,15 @@
-function [nextpos] = GreedyPick(pos, easting, heights)
+function [nextpos] = GreedyPick(pos, easting, heights, height, width)
 %Provides greedy next position.
 %Inputs:    currentpos: 1x2 Vector of of current row and column
 %           easting:    Moving east (+1) or west (-1)
 %           heights:    Elevation data for the whole matrix/area
 %Outputs:   nextpos:    1x2 Vector of next row and column
 
-[height,width] = size(heights);
+%Fetch size if not optionally passed
+if nargin <= 3
+    [height,width] = size(heights);
+end
+
 row = pos(1);
 col = pos(2);
 currentHeight = heights(row,col); %cache current height
