@@ -1,11 +1,21 @@
 function [rows,columns,elevations] = BestPath(heights)
 %Finds the best path from west to east across the heightfield heights
-%uses dijkstra's algorithm
+%uses dijkstra's algorithm: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
 [height, width] = size(heights);
 
-unvisited = ones(height,width);
-costs = inf(height,width);
+%::1 is whether node visited
+%::2 is distance from origin
+%::3 is prev node
+dcells = cell(height,width,3);
+
+%initalise cell values
+dcells(:,:,1) = 0;
+dcells(:,:,2 = inf;
+dcells(:,:,3) = "undefined";
+
+%set
+dcells(:,1,3) = "start";
 
 finished = false;
 
@@ -13,25 +23,12 @@ row = 1;
 col = 0;
 
 while ~finished
-    t_min
-    if col == 0 %set cost of first positions to zero
-        costs(:,1) = 0;
-    elseif col == width %algorithm finished
-        finished = true;
-        break
-    else
-        last_cost = costs(row,col);
-        for x = -1:1 %range of visible offsets
-            if (row + x) >= 1 && (row + x) <= height %check if offset is in matrix
-                %check min distance between 
-                t_cost = abs(currentHeight - heights(row + x , col + easting)) + last_cost;
-                if t_cost < costs(row + x , col + easting) %We have a new minimum
-                    idx = x; %save new minimum offset
-                    min = t_min; %save new minimum
-                end
-            end
-        end
+    for x = 1:2
+        
+        [row_u, col_u] = getclosestneighbour(row,col,heights,height,width,dcells); %get closest neighbour
+        
     end
-    
-    
 end
+end
+
+
