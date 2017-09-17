@@ -16,10 +16,10 @@ mincost = inf;
 for m = 1:height
     for n = 1:width
         if n < width %Go east if you can
-            [trowsE,tcolsE] = GreedyWalk([m n],1,heights);
+            [trowsE,tcolsE] = GreedyWalk([m n],1,heights,height,width);
         end
         if n > 1 %Go west if you can
-            [trowsW,tcolsW] = GreedyWalk([m n],-1,heights);
+            [trowsW,tcolsW] = GreedyWalk([m n],-1,heights,height,width);
             %put west-heading sequnces the right way around
             trowsW = flip(trowsW);
             tcolsW = flip(tcolsW);

@@ -1,4 +1,4 @@
-function [rows,cols] = GreedyWalk(pos,easting,heights)
+function [rows,cols] = GreedyWalk(pos,easting,heights, height, width)
 %Traverses a matrix horizontally moving horizontally/diagonally to the
 %position with immediate least difference in matrix values
 %inputs:    startpos: 1x2 vector for m,n coordinates of starting position
@@ -11,8 +11,10 @@ function [rows,cols] = GreedyWalk(pos,easting,heights)
 row_t = pos(1);
 col_t = pos(2);
 t_pos = pos;
-[height,width] = size(heights);
 
+if nargin <=3 %optional args not called
+    [height,width] = size(heights);
+end
 %loop the appropriate number of times (distance to walk)
 if easting == 1
     traverse = width - col_t + 1; %offset of 1
