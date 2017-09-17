@@ -3,6 +3,7 @@ function [nextpos] = GreedyPick(pos, easting, heights, height, width)
 %Inputs:    currentpos: 1x2 Vector of of current row and column
 %           easting:    Moving east (+1) or west (-1)
 %           heights:    Elevation data for the whole matrix/area
+%         Optional: height, width: Height/width of heights for optimisation
 %Outputs:   nextpos:    1x2 Vector of next row and column
 
 %Fetch size if not optionally passed

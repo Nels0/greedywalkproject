@@ -4,6 +4,7 @@ function [rows,cols] = GreedyWalk(pos,easting,heights, height, width)
 %inputs:    startpos: 1x2 vector for m,n coordinates of starting position
 %           easting: +1 traverse west-east, -1 traverse east-west
 %           heights: matrix to traveres containing heights
+%   Optional: height, width: Height/width of heights for optimisation
 %Outputs:   rows, columns: matched pair of vectors listing route taken by
 %                          sequential row and column pairs
 

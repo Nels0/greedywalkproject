@@ -1,5 +1,5 @@
 function r = Reverse(vector)
-%Reverses a 1d array, like flip() but for only 1d vectors
+%Reverses a 1d array
 %Input: Vector (1xn or nx1 matrix)
 %Output: Vector in reverse order (same dimension as input matrix)
 
