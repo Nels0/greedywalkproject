@@ -30,7 +30,7 @@ else
 end
 
 % set up  test data
-load TestDataGreedyPick
+load MarkingDataGreedyPick
 
 input1 = GreedyPickInput1;
 input2 = GreedyPickInput2;

@@ -21,7 +21,7 @@ else
 end
 
 % set up  test data
-load TestDataReverse
+load MarkingDataReverse
 
 input1 = ReverseInput;
 

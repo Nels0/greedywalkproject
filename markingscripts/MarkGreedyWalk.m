@@ -29,7 +29,7 @@ else
 end
 
 % set up  test data
-load TestDataGreedyWalk
+load MarkingDataGreedyWalk
 
 input1 = GreedyWalkInput1;
 input2 = GreedyWalkInput2;

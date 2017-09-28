@@ -26,14 +26,14 @@ else
 end
 
 % set up  test data
-load TestDataBestPath
+load MarkingDataBestPath
 
 input1 = BestPathInput1;
 
 expectedOutput1 = BestPathExpectedOutput1;
 expectedOutput2 = BestPathExpectedOutput2;
 expectedOutput3 = BestPathExpectedOutput3;
-
+expectedPathCost = BestPathExpectedCost;
 
 purpose = BestPathTestPurpose;
 
@@ -52,10 +52,10 @@ for i = 1:numTests
         % calculate cost rather than comparing outputs directly
         % also check column numbers increase and row numbers don't differ
         % by more than 1
-        [~,cost{i}] = FindPathElevationsAndCost(output1{i},output2{i},input1{i});
+        [~,cost{i}] = CalcPathElevationsAndCost(output1{i},output2{i},input1{i});
         r = output1{i};
         invalidRows = sum(abs(r(2:end)-r(1:(end-1)))>1);
-        if isequal(expectedPathCost{i},cost{i}) && isequal(expectedOutput2{i},output2{i}) && invalidRows == 0
+        if abs(expectedPathCost{i}-cost{i})<1e-8 && isequal(expectedOutput2{i},output2{i}) && invalidRows == 0
             totalPassed = totalPassed + 1;
             disp([m 'Passed test']);
         else

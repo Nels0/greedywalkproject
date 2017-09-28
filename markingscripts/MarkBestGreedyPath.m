@@ -7,13 +7,13 @@ function [mark] = MarkBestGreedyPath(specifiedFunctionName)
 % to specify a different filename for the function,
 % Use the optional argument if the user has mispelt their function name
 %
-% BestGreedyPath takes a single input, the elevation data stored in a 
+% BestGreedyPath takes a single input, the elevation data stored in a
 % 2D m x n matrix
-% 
+%
 % It should return three outputs in the following order:
 % 1)	a 1D array representing containing the row indices of the path
 % 2)	a 1D array representing the corresponding column indices of the path
-% 3)	a 1D array containing the elevations for the corresponding row and 
+% 3)	a 1D array containing the elevations for the corresponding row and
 % column indices for the path
 %
 % author: Peter Bier
@@ -26,7 +26,7 @@ else
 end
 
 % set up  test data
-load TestDataBestGreedyPath
+load MarkingDataBestGreedyPath
 
 input1 = BestGreedyPathInput1;
 
@@ -49,13 +49,38 @@ for i = 1:numTests
         [output1{i} output2{i} output3{i}] = feval(functionName,input1{i});
         % check if result returned closely matches the expected result
         
-        if isequal(expectedOutput1{i},output1{i}) && isequal(expectedOutput2{i},output2{i}) ...
-                && isequal(expectedOutput3{i},output3{i})
-            totalPassed = totalPassed + 1;
-            disp([m 'Passed test']);
+        % check what order columns are in
+        
+        if isequal(expectedOutput2{i},output2{i})
+            % columns increasing
+            if isequal(expectedOutput1{i},output1{i})  ...
+                    && isequal(expectedOutput3{i},output3{i})
+                totalPassed = totalPassed + 1;
+                disp([m 'Passed test']);
+            else
+                disp([m 'FAILED test']);
+            end
+        elseif isequal(expectedOutput2{i},fliplr(output2{i}))
+            % columns decreasing
+            if isequal(expectedOutput1{i},fliplr(output1{i}))  ...
+                    && isequal(expectedOutput3{i},output3{i})
+                totalPassed = totalPassed + 1;
+                disp([m 'Passed test']);
+            else
+                disp([m 'FAILED test']);
+            end
         else
             disp([m 'FAILED test']);
         end
+        
+        
+        %         if isequal(expectedOutput1{i},output1{i}) && isequal(expectedOutput2{i},output2{i}) ...
+        %                 && isequal(expectedOutput3{i},output3{i})
+        %             totalPassed = totalPassed + 1;
+        %             disp([m 'Passed test']);
+        %         else
+        %             disp([m 'FAILED test']);
+        %         end
         
     catch ex
         disp([m 'FAILED test']);

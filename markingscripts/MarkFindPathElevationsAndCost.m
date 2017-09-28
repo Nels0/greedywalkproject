@@ -28,7 +28,7 @@ else
 end
 
 % set up  test data
-load TestDataFindPathElevationsAndCost
+load MarkingDataFindPathElevationsAndCost
 
 input1 = FindPathElevationsAndCostInput1;
 input2 = FindPathElevationsAndCostInput2;

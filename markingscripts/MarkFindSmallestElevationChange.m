@@ -30,7 +30,7 @@ else
 end
 
 % set up  test data
-load TestDataFindSmallestElevationChange
+load MarkingDataFindSmallestElevationChange
 
 input1 = FindSmallestElevationChangeInput1;
 input2 = FindSmallestElevationChangeInput2;

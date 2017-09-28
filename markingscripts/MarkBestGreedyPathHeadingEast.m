@@ -26,7 +26,7 @@ else
 end
 
 % set up  test data
-load TestDataBestGreedyPathHeadingEast
+load MarkingDataBestGreedyPathHeadingEast
 
 input1 = BestGreedyPathHeadingEastInput1;
 
